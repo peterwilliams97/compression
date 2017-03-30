@@ -13,13 +13,13 @@
     /ImageString {
         <
         5555555555555555
+        AAAAAAAAAAAAAAAA
         5555555555555555
+        AAAAAAAAAAAAAAAA
         5555555555555555
+        AAAAAAAAAAAAAAAA
         5555555555555555
-        5555555555555555
-        5555555555555555
-        5555555555555555
-        5555555555555555
+        AAAAAAAAAAAAAAAA
         >
     }
                                 %  Now we define the paint procedure.
@@ -35,10 +35,14 @@
     }                        %  end of paint procedure
 >> def                         %  pop off dictionary stack
 
+
 ImageProto                      %  pattern dictionary to operand stack
 [ 64 0 0 64 0 0 ]               %  transformation matrix
 makepattern                     %  make an instance of the pattern
 /SmallImage exch def            %  stash the instantiated pattern
+
+
+
 /inch { 72 mul } def            %  define inch procedure
 /DrawEllipse {                  %  stack = x y xr yr
     matrix currentmatrix        %  remember CTM
@@ -49,13 +53,48 @@ makepattern                     %  make an instance of the pattern
 
 } def
 
-4.25 inch 5.5 inch 4 inch 5 inch DrawEllipse
+
+% 4.25 inch 5.5 inch 4 inch 5 inch DrawEllipse
+% fill                            %  fill full of images
+
+1 0 0 setrgbcolor
+clippath fill
+
+/Helvetica 200 selectfont
+
+
+0 0 1 setrgbcolor
+50 400  moveto
+(Blah blah blah balh) show
+
+0 0 1 setrgbcolor
+50 600  moveto
+(Blah blah blah balh) show
+
 [
     /Pattern
     /DeviceGray
 ] setcolorspace                 %  color space is pattern
-0.67 SmallImage setcolor        %  use the instantiated pattern
-fill                            %  fill full of images
+0.9 SmallImage setcolor        %  use the instantiated pattern
+
+
+/Helvetica 300 selectfont
+50 400 moveto
+(Hello) show
+
+
+[
+    /Pattern
+    /DeviceGray
+] setcolorspace                 %  color space is pattern
+0.3 SmallImage setcolor        %  use the instantiated pattern
+
+
+/Helvetica 300 selectfont
+50 200 moveto
+(Hello) show
+
+
 showpage                        %  display page
 
 
