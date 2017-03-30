@@ -1,0 +1,62 @@
+%!PS
+/ImageProto <<         %  define dictionary for pattern
+    /PatternType 1           %  required--must be 1
+    /PaintType 2             %  uncolored pattern
+    /TilingType 1            %  controls grid adjustment
+    /BBox [ 0 0 1 1 ]        %  bounding box for shape
+    /XStep 1                 %  increment in x dimension
+    /YStep 1                 %  increment in y dimension
+                                %  Here we define a string which is
+                                %  64 by 64 bits.  You can make this
+                                %  any size you like as long as the
+                                %  various matrices are altered to suit.
+    /ImageString {
+        <
+        5555555555555555
+        5555555555555555
+        5555555555555555
+        5555555555555555
+        5555555555555555
+        5555555555555555
+        5555555555555555
+        5555555555555555
+        >
+    }
+                                %  Now we define the paint procedure.
+                                %  This procedure scales a 64 by 64
+                                %  bit array into a unit square.
+    /PaintProc {                %  pattern dictionary is on stack
+        begin                   %  push onto dictionary stack
+            64 64 true          %  width  height  paint 1 bits
+            [ 64 0 0 64 0 0 ]   % scale to unit square
+            ImageString         %  gets string onto stack
+            imagemask           %  lays down a bit mask
+        end                    %  pop pattern dictionary off stack
+    }                        %  end of paint procedure
+>> def                         %  pop off dictionary stack
+
+ImageProto                      %  pattern dictionary to operand stack
+[ 64 0 0 64 0 0 ]               %  transformation matrix
+makepattern                     %  make an instance of the pattern
+/SmallImage exch def            %  stash the instantiated pattern
+/inch { 72 mul } def            %  define inch procedure
+/DrawEllipse {                  %  stack = x y xr yr
+    matrix currentmatrix        %  remember CTM
+    5 3 roll translate          %  translate coordinate system
+    3 1 roll scale              %  scale coordinate system
+    0 0 1 0 360 arc closepath   %  draw circle
+    setmatrix                   %  restore CTM
+
+} def
+
+4.25 inch 5.5 inch 4 inch 5 inch DrawEllipse
+[
+    /Pattern
+    /DeviceGray
+] setcolorspace                 %  color space is pattern
+0.67 SmallImage setcolor        %  use the instantiated pattern
+fill                            %  fill full of images
+showpage                        %  display page
+
+
+
