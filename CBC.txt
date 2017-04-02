@@ -1,0 +1,26 @@
+iv  = f(n)
+c[0] = f(iv^m[0])
+c[1] = f(c[0]^m[1])
+c[2] = f(c[1]^m[2])
+c[i+1] = f(c[i]^m[i+1])
+
+
+The attacker begins by asking for the encryption of the two block message m=(0ℓ,0ℓ) with nonce n=0ℓ. It receives back a two block ciphertext (c0,c1). Observe that by definition of CBC we know that c1=F(k,c0).
+
+Next, the attacker asks for the encryption of the one block message m1=c0⨁c1 with nonce n=c0. It receives back a one block ciphertext c′0.
+
+iv  = f(0)
+c0 = f(iv^0) = f(iv)
+c1 = f(c0^0) = f(c0) = f(f(f(0)))   c1 = f(c0)
+
+iv  = f(c0)                         iv = c1
+c′0 = f(iv^c0^c1) = f(f(c0)^c0^c1)  c′0 = f(c0) = c1
+
+
+c1=c0
+
+c0=c1⨁c′0
+
+c1=c′0
+
+c′0=c0⨁1ℓ

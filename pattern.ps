@@ -12,14 +12,8 @@
                                 %  various matrices are altered to suit.
     /ImageString {
         <
-        5555555555555555
-        AAAAAAAAAAAAAAAA
-        5555555555555555
-        AAAAAAAAAAAAAAAA
-        5555555555555555
-        AAAAAAAAAAAAAAAA
-        5555555555555555
-        AAAAAAAAAAAAAAAA
+        55
+        AA
         >
     }
                                 %  Now we define the paint procedure.
@@ -27,8 +21,8 @@
                                 %  bit array into a unit square.
     /PaintProc {                %  pattern dictionary is on stack
         begin                   %  push onto dictionary stack
-            64 64 true          %  width  height  paint 1 bits
-            [ 64 0 0 64 0 0 ]   % scale to unit square
+            600 600 true          %  width  height  paint 1 bits
+            [ 600 0 0 600 0 0 ]   % scale to unit square
             ImageString         %  gets string onto stack
             imagemask           %  lays down a bit mask
         end                    %  pop pattern dictionary off stack
