@@ -112,7 +112,6 @@ def do_block(cip, B):
                 plain = asc(a)
                 print('%2d %2d: %50s %18r' % (len(a), len(plain), txt(a), plain))
                 break
-            # assert k == 403 or g
         if not found:
             assert orig_n is not None
             n = orig_n
@@ -121,14 +120,16 @@ def do_block(cip, B):
             plain = asc(a)
             print('%2d %2d: %50s %18r' % (len(a), len(plain), txt(a), plain))
 
+    a = list(reversed(answer))
+    plain = asc(a)
     return plain
 
 
-answers = []
+parts = []
 for B in 1, 2, 3:
-    a = do_block(cip, B)
+    plain = do_block(cip, B)
     print('-' * 80)
-    answers.append(a)
+    parts.append(plain)
 print('=' * 80)
-plain = ''.join(answers)
+plain = ''.join(parts)
 print('%d %r' % (len(plain), plain))
