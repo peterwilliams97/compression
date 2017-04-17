@@ -122,12 +122,17 @@ cip = cip[:N]
 answer = []
 for pos in range(1, M + 1):
     found = False
+    print('%2d::' % pos, end=' ')
     for n in range(0x100):
         o = M - pos
         # d = [n ^ cip[i] ^ pos for i in range(o, M)]
-        h = list(reversed(answer + [n]))
-        d = [h[i - o] ^ cip[i] ^ pos for i in range(o, M)]
-        xcip = cip[:o] + d + cip[M:]
+        # h = list(reversed(answer + [n]))
+        h = [n] + list(reversed(answer))
+        # h = answer + [n]
+        # d = [h[i - o] ^ cip[i] ^ pos for i in range(o, M)]
+        d = [h[i] ^ cip[M - pos + i] ^ pos for i in range(pos)]
+        # d = [h[i] ^ cip[M - 1 - i] ^ pos for i in range(pos)]
+        xcip = cip[:M - pos] + d + cip[M:]
         assert len(xcip) == N, len(xcip)
         q = txt(xcip)
         g, k = query(q)
@@ -138,9 +143,9 @@ for pos in range(1, M + 1):
             answer.append(n)
             a = list(reversed(answer))
             print('%2d %2d: %50s %18r' % (len(a), len(asc(a)), txt(a), asc(a)))
-            for _ in range(3):
-                g, _ = query(q)
-                assert g
-            # break
+            # for _ in range(3):
+            #     g, _ = query(q)
+            #     assert g
+            break
         assert k == 403 or g
     assert found
